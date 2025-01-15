@@ -43,6 +43,43 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        button {
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .container-togle{
+            float:right;
+        }
+
+        
+        .togle-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 5px;
+     
+        }
+
+        .light-mode {
+        background-color: white;
+        color: black;
+        }
+        .dark-mode {
+        background-color: #121212;
+        color: white;
+        }
+
+        #google_translate_element{
+            float: right !important;
+            margin-top: 8px;
+        }
+           
+
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .sidebar {
@@ -62,7 +99,7 @@
         }
     </style>
 </head>
-<body class="bg-light">
+<body class="light-mode">
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -78,9 +115,13 @@
     <!-- Main Content -->
     <div class="content">
         <div class="container-fluid">
+             <div class="container-togle">
+                <button id="toggle-theme" class="togle-btn">Toggle Dark Mode</button>
+                <div id="google_translate_element"></div>
+            </div> 
             <!-- Title from the child view -->
             <h1 class="my-4">@yield('title', 'Dashboard')</h1>
-
+            
             <!-- Stats Cards in Header Section -->
             <div class="row mb-4">
                 <!-- Stats Card 1 -->
@@ -132,5 +173,30 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                pageLanguage: 'en', // Default language
+                includedLanguages: 'en,fr,de,es,zh-CN,ru' 
+                }, 'google_translate_element');
+            }
+           var toggle = document.getElementById("toggle-theme");
+
+            toggle.addEventListener("click", function () {
+                const body = document.body;
+                if (body.classList.contains('light-mode')) {
+                    body.classList.remove("light-mode");
+                    body.classList.add("dark-mode");
+                    toggle.textContent = "Switch To Light Mode";
+                } else {
+                    body.classList.remove("dark-mode");
+                    body.classList.add("light-mode");
+                    toggle.textContent = "Switch To Dark Mode";
+                }
+            });
+
+    </script>
 </body>
 </html>
